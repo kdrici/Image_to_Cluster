@@ -12,13 +12,56 @@ Les outils utilisés sont :
 - **K3d** pour l’exécution d’un cluster Kubernetes léger
 - **Ansible** (à venir) pour l’automatisation du déploiement applicatif
 
-Les commandes pour tester : 
+## Prérequis
 
-  Initialisation
-  make setup
+- Docker
+- Packer
+- Ansible
+- kubectl
+- k3d
+- Make
 
-  Déploiement complet
-  make all
+## Structure du projet
 
-  Vérification
-  make status
+.
+├── ansible/        # Déploiement Kubernetes
+├── k8s/            # Manifests Kubernetes
+├── packer/         # Build de l’image Docker
+├── index.html      # Application web
+├── Makefile        # Orchestration des commandes
+└── README.md
+
+## Workflow
+
+1. Build de l’image Docker avec Packer
+2. Import de l’image dans le cluster K3d
+3. Déploiement Kubernetes via Ansible
+4. Exposition du service et test de l’application
+
+## Vérification
+
+Une fois le déploiement terminé :
+- Le service Kubernetes est exposé
+- L’application est accessible via le port forward
+- La page HTML s’affiche correctement
+
+## Commandes Make
+
+| Commande     | Description                          |
+|--------------|--------------------------------------|
+| make setup   | Initialise l’environnement            |
+| make all     | Build et déploie l’application        |
+| make status  | Vérifie l’état du cluster              |
+| make clean   | Supprime les ressources Kubernetes    |
+| make stop    | Arrête le cluster K3d                 |
+
+## Points clés
+
+- Déploiement 100 % automatisé
+- Infrastructure as Code
+- Reproductibilité via Codespaces
+- Chaîne complète : code → image → cluster
+
+## Conclusion
+
+Ce projet illustre un pipeline DevOps complet permettant de passer d’un simple artefact applicatif à un déploiement Kubernetes automatisé et reproductible.
