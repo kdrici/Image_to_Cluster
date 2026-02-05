@@ -35,7 +35,7 @@ setup:
 	sudo apt-get update || true
 	sudo apt-get install -y ansible unzip
     # k3d
-    curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+	curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
     # packer
 	PACKER_VERSION="1.11.2"; \
 	curl -fsSL "https://releases.hashicorp.com/packer/$${PACKER_VERSION}/packer_$${PACKER_VERSION}_linux_amd64.zip" -o /tmp/packer.zip && \
