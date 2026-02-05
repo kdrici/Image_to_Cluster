@@ -90,3 +90,54 @@ Cet atelier, **noté sur 20 points**, est évalué sur la base du barème suivan
 - Processus travail (quantité de commits, cohérence globale, interventions externes, ...) (4 points) 
 
 
+Exercice : 
+
+# Image to Cluster – Atelier Infrastructure as Code
+
+## Objectif de l’atelier
+
+Cet atelier a pour objectif d’illustrer une chaîne complète d’industrialisation du cycle de vie d’une application simple, depuis la construction d’une image applicative maîtrisée jusqu’à son exécution sur un cluster Kubernetes.
+
+Les outils utilisés sont :
+- **GitHub Codespaces** pour un environnement de travail reproductible
+- **Packer** pour la construction d’une image Docker customisée
+- **K3d** pour l’exécution d’un cluster Kubernetes léger
+- **Ansible** (à venir) pour l’automatisation du déploiement applicatif
+
+---
+
+## Architecture cible
+
+L’architecture repose sur les étapes suivantes :
+
+1. Construction d’une image Nginx customisée avec Packer
+2. Import de l’image dans un cluster Kubernetes K3d
+3. Déploiement automatisé de l’application via Ansible
+4. Exposition de l’application et validation fonctionnelle
+
+L’ensemble des actions est réalisé depuis un GitHub Codespace.
+
+---
+
+## Environnement de travail
+
+Le projet est exécuté dans un **GitHub Codespace**, garantissant :
+- un environnement Linux prêt à l’emploi
+- Docker et kubectl disponibles
+- une reproductibilité complète des manipulations
+
+---
+
+## Mise en place du cluster Kubernetes (K3d)
+
+Un cluster Kubernetes local est créé à l’aide de K3d avec :
+- 1 nœud master
+- 2 nœuds workers
+
+### Création du cluster
+
+```bash
+k3d cluster create lab --servers 1 --agents 2
+
+
+
