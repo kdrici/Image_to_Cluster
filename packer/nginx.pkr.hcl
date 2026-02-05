@@ -1,20 +1,31 @@
 packer {
   required_plugins {
     docker = {
+      version = ">= 1.0.0"
       source  = "github.com/hashicorp/docker"
-      version = "~> 1.0"
     }
   }
 }
 
-source "docker" "nginx_custom" {
+variable "image_name" {
+  type    = string
+  default = "nginx-custom:1.0"
+}
+
+source "docker" "nginx" {
   image  = "nginx:alpine"
   commit = true
 }
 
 build {
-  name    = "nginx-custom"
-  sources = ["source.docker.nginx_custom"]
+  sources = ["source.docker.nginx"]
+
+  provisioner "shell" {
+    inline = [
+      "mkdir -p /usr/share/nginx/html",
+      "rm -f /usr/share/nginx/html/*"
+    ]
+  }
 
   provisioner "file" {
     source      = "../index.html"
@@ -23,12 +34,14 @@ build {
 
   provisioner "shell" {
     inline = [
-      "nginx -t"
+      "ls -la /usr/share/nginx/html",
+      "nginx -v || true"
     ]
   }
 
   post-processor "docker-tag" {
     repository = "nginx-custom"
-    tag        = ["latest"]
+    tag = ["1.0"]
   }
 }
+

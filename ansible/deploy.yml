@@ -1,0 +1,17 @@
+- name: Deploy nginx-custom to k3d (Kubernetes)
+  hosts: localhost
+  gather_facts: false
+ 
+  tasks:
+    - name: Apply manifests
+      ansible.builtin.command: kubectl apply -f ../k8s/
+ 
+    - name: Wait for rollout
+      ansible.builtin.command: kubectl rollout status deployment/nginx-custom --timeout=120s
+ 
+    - name: Show pods and service
+      ansible.builtin.command: kubectl get pods,svc -o wide
+      register: out
+ 
+    - ansible.builtin.debug:
+        var: out.stdout_lines
